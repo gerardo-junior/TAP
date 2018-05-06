@@ -1,0 +1,42 @@
+version: "3.4"
+services:
+  webserver:
+    image: nginx:1.12.2-alpine
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: ./dist
+        target: /usr/share/nginx/html
+    ports:
+      - 8080:80
+    depends_on:
+      - api
+
+  api: 
+    image: gerardojunior/tap.api.environment:stable
+    restart: on-failure
+    entrypoint: start.sh
+    ports:
+      - 1234:80
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:3.6.4
+    restart: on-failure
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - type: volume
+        source: dbdata
+        target: /data/db
+        volume:
+          nocopy: true
+    command: mongod --smallfiles --logpath=/dev/null
+
+volumes:
+  dbdata:
+    name: "tap-dbdata"
