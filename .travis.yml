@@ -2,7 +2,7 @@ sudo: required
 language: node
 
 services:
-- docker
+  - docker
 
 cache:
   directories:
