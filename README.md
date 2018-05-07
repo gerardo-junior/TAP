@@ -1,6 +1,10 @@
-# tup
+# Twitter analytics panel
 
-> Twitter analytics panel
+> A nuxt.js application with api php phalcon
+
+| master  | develop  |
+| :------------: | :------------: |
+| [![Build Status](https://api.travis-ci.org/gerardo-junior/TAP.svg?branch=master)](https://travis-ci.org/gerardo-junior/TAP)  |  [![Build Status](https://api.travis-ci.org/gerardo-junior/TAP.svg?branch=develop)](https://travis-ci.org/gerardo-junior/TAP) |
 
 ## Build Setup
 
@@ -19,10 +23,7 @@ $ npm start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, check out the [Nuxt.js](https://github.com/nuxt/nuxt.js) and [Vuetify.js](https://vuetifyjs.com/) documentation.
 
+### License
 
-
-## License
-
-This project is licensed under the BSD License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

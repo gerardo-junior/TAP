@@ -41,7 +41,6 @@ services:
     restart: on-failure
     environment:
       - MONGO_DATA_DIR=/data/db
-      - MONGO_LOG_DIR=/dev/null
     volumes:
       - type: volume
         source: dbdata

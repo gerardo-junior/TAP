@@ -1,0 +1,45 @@
+sudo: required
+language: node
+
+services:
+- docker
+
+cache:
+  directories:
+  - node_modules
+
+branches:
+  only:
+  - master
+  - develop
+env:
+  global:
+    secure: gbhKnvyc4EaC9oW1cbg2Gkpz8tKmhsWynA3wynTJ0lF6XRdY9byZHBxWaFHuBvEvFY1Xo/Jjns88izOKfOuwSK/DlSG1Um9MfGA6UmQvfVmi2qoUebyHYLUbPv3CVZgMmGNI7GiiaRJ9HmRHM/KHNV7K6GQbrL6MPgRFEq3o3wq7geQXxF5bNmUcKpWglvvKZF2vz6FJiQvGTlOKWtd9Pw4otiFJzWYT3ldmTW56BGokV55z/Cvz55cXtTDDif+698YgqEKcX0bLfpmss+ef8hBYkUktsihtGdFduyeoc0BhoqPM21CqaF1ZF5B6Nlg89kVMgY2Kjzb/2XACT/AGhcyV3z8HAP0ExrDEorvEBkUaCFyuqW5tOBfR87vbeIH1w2D6vD0bPc4DYCLlsJIc2yJmOnLFmSJOXOKy6syvZGsBSIRI1ZIJtoGfMdF2+0TFrxzZllTTgK6NVM5kI2IGogtPJOuTU9DsM+9qHo0dCrt8QKPsh8JzFB1IUnwyMLOaKdNPZ9PXAgyHC6zDdfkcmLfNouRrg/9W8XjjSRsZFmyU1FHPw4FK+BdnkqNW2xTK0xXa5ydAucE/W0iEYhdLXCvEhBgxJBVDv/ItNpkQZLsg/HauUa+jukr4NUJzRK2+cORVV3rx8sq3yPIiOW7K0EUGGEltYniPEbMFY5JI0xs=
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then 
+      sudo apt-get -qq update; 
+      sudo apt-get install -y ncftp; 
+    fi
+
+install:
+  - docker pull gerardojunior/tap.api.enviroment:stable
+  - docker pull gerardojunior/tap.client.environment:stable
+
+script:
+  - docker run -it -rm $(pwd):/usr/share/src gerardojunior/tap.client.environment:stable npm run test
+  - docker-compose up -d
+
+after_script:
+  - docker stop $(docker ps -a -q)
+  - docker-compose down
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then 
+    docker run -it -rm $(pwd):/usr/share/src gerardojunior/tap.client.environment:stable npm run build; 
+    ncftpput -R -v -u $TRAVIS_USER -p $TRAVIS_PASS ftp.gerardo-junior.com /tap dist/*; 
+  fi

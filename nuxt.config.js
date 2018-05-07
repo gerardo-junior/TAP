@@ -6,11 +6,11 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'tup',
+    title: 'T.A.P - Twitter analytics panel ',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Twitter analytics panel' }
+      { hid: 'description', name: 'description', content: 'A graphical visualization of tweets analysis and public opinion' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
