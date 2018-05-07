@@ -27,7 +27,7 @@ before_install:
     fi
 
 install:
-  - docker pull gerardojunior/tap.api.enviroment:stable
+  - docker pull gerardojunior/tap.api.environment:stable
   - docker pull gerardojunior/tap.client.environment:stable
 
 script:
