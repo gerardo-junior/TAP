@@ -42,4 +42,4 @@ after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then 
     docker run -it -rm $(pwd):/usr/share/src gerardojunior/tap.client.environment:stable npm run build; 
     ncftpput -R -v -u $TRAVIS_USER -p $TRAVIS_PASS ftp.gerardo-junior.com /tap dist/*; 
-  fi
+    fi
