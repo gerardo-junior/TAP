@@ -29,6 +29,10 @@ services:
     image: gerardojunior/tap.api.environment:stable
     restart: on-failure
     entrypoint: start.sh
+    volumes:
+      - type: bind
+        source: ./api.config.ini
+        target: /usr/share/src/config.ini
     ports:
       - 1234:80
     links:

@@ -6,3 +6,6 @@ npm-debug.log
 
 # Nuxt build
 .nuxt
+
+# Api config
+api.config.ini
