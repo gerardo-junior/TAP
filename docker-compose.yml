@@ -35,6 +35,7 @@ services:
         target: /usr/share/src/config.ini
     ports:
       - 1234:80
+      - 4321:8080
     links:
       - mongodb
     depends_on:
