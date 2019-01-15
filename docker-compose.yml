@@ -13,7 +13,7 @@ services:
       - api
   
   nuxt:
-    image: gerardojunior/tap.client.environment:stable
+    image: gerardojunior/nuxtjs:stable
     restart: on-failure
     volumes:
       - type: bind
